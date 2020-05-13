@@ -9,14 +9,14 @@ class App extends React.Component{
             author:'',
             text: '',
             isLoaded: false,
-            //bgColor:'f99192',
-            //clickCount:0
+            bgColor:'f99192',
+           // clickCount:0
         }
         this.handleClick = this.handleClick.bind(this);
     }
     handleClick(){
         this.generateQuote();
-        //this.changeColor();
+        this.changeColor();
     }
 
     componentDidMount(){
@@ -47,10 +47,35 @@ class App extends React.Component{
         })
     }
 
+    changeColor=()=>{
+        this.setState({
+            bgColor: this.getRandomColor()
+        })
+        console.log(this.state.bgColor);
+    }
+
+    getRandomColor=()=>{
+        let letters = '0123456789ABCDEF';
+        let color = '#';
+        for(let i = 0; i < 6; i++){
+            color+=letters[Math.floor(Math.random()*16)];
+        }
+        return color;
+    }
     render(){
         let status = this.state.text + '\n-' + this.state.author + '-';
         return(
             <div id="main">
+            <style>
+                {   //Tat ca trong dau ngaoac la Js
+                    `:root{
+                        --main-bg-color:${this.state.bgColor};
+                        --main-txt-color:${this.state.bgColor};
+                    }
+                    `
+                    //Tra ve mot string voi cac bien css duoc khoi tao
+                }
+            </style>
                 <h1 id="tittle">Random Quote Machine</h1>
                 <div id="quote-box">
                     <p id="text">{this.state.text}</p>
