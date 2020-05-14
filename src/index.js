@@ -92,7 +92,7 @@ class App extends React.Component{
                     </div>
                     <div className ="buttons-element" id="buttons">
                         <div className="fb-share">
-                            <FacebookShareButton url="https://hungnguyen7.github.io/myblog/" quote={status} title="Share on Facebook"><button id="fb-button">Share</button></FacebookShareButton>
+                            <FacebookShareButton url="https://hungnguyen7.github.io/random-quote-machine" quote={status} title="Share on Facebook"><button id="fb-button">Share</button></FacebookShareButton>
                         </div>
                         <div className="tweet">
                             <a id="tweet-quote" a href="http://twitter.com/intent/tweet" target="_blank" title="Tweet on Twitter"><button id ="tweet-button" onClick={this.shareOnTwitter}>Tweet</button></a>
