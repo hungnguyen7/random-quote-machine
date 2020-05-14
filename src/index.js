@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {FacebookShareButton, FacebookIcon} from 'react-share';
+import {FacebookShareButton} from 'react-share';
+import './index.css';
 class App extends React.Component{
     constructor(props){
         super(props);
@@ -9,8 +10,7 @@ class App extends React.Component{
             author:'',
             text: '',
             isLoaded: false,
-            bgColor:'f99192',
-           // clickCount:0
+            bgColor:'#f99192'
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -18,7 +18,7 @@ class App extends React.Component{
         this.generateQuote();
         this.changeColor();
     }
-
+    
     componentDidMount(){
         fetch('https://gist.githubusercontent.com/hungnguyen7/1ff793a446fe8efad86edca2506f4743/raw/ed1c8bcd9f27c2bc9a69edb43f25afde2a4a48eb/quote.json').then(response=>response.json()).then((responseData)=>{
             this.setState({
@@ -51,7 +51,6 @@ class App extends React.Component{
         this.setState({
             bgColor: this.getRandomColor()
         })
-        console.log(this.state.bgColor);
     }
 
     getRandomColor=()=>{
@@ -62,12 +61,19 @@ class App extends React.Component{
         }
         return color;
     }
+    
+    shareOnTwitter = () => {
+        //found on https://gist.github.com/McKinneyDigital/2884508#file-share-twitter-js
+        let url = "twitter.com";
+        let text = `${this.state.author} - ${this.state.text}`
+        window.open('http://twitter.com/share?url='+encodeURIComponent(url)+'&text='+encodeURIComponent(text), '', 'left=0,top=0,width=550,height=450,personalbar=0,toolbar=0,scrollbars=0,resizable=0');
+      }
     render(){
-        let status = this.state.text + '\n-' + this.state.author + '-';
+        let status = this.state.text + '\n<' + this.state.author + '>';
         return(
             <div id="main">
             <style>
-                {   //Tat ca trong dau ngaoac la Js
+                {   //Tat ca trong dau ngoac la Js
                     `:root{
                         --main-bg-color:${this.state.bgColor};
                         --main-txt-color:${this.state.bgColor};
@@ -76,12 +82,25 @@ class App extends React.Component{
                     //Tra ve mot string voi cac bien css duoc khoi tao
                 }
             </style>
-                <h1 id="tittle">Random Quote Machine</h1>
-                <div id="quote-box">
-                    <p id="text">{this.state.text}</p>
-                    <p id="author">{this.state.author}</p>
-                    <FacebookShareButton url="https://hungnguyen7.github.io/myblog/" quote={status}><FacebookIcon className="share-button" size={32} round={true}/></FacebookShareButton>
-                    <button id="new-quote" onClick={this.handleClick}>New Quote</button>
+                <h1 id="title">Random Quote Machine</h1>
+                <div className="container" id="quote-box">
+                    <div className="text-element">
+                        <p id="text">{this.state.text}</p>
+                    </div>
+                    <div className="author-element">
+                        <p id="author">{this.state.author}</p>
+                    </div>
+                    <div className ="buttons-element" id="buttons">
+                        <div className="fb-share">
+                            <FacebookShareButton url="https://hungnguyen7.github.io/myblog/" quote={status} title="Share on Facebook"><button id="fb-button">Share</button></FacebookShareButton>
+                        </div>
+                        <div className="tweet">
+                            <a id="tweet-quote" a href="http://twitter.com/intent/tweet" target="_blank" title="Tweet on Twitter"><button id ="tweet-button" onClick={this.shareOnTwitter}>Tweet</button></a>
+                        </div>
+                        <div className="new-quote">
+                            <button id="new-quote" onClick={this.handleClick}>New Quote</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
