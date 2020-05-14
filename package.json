@@ -1,4 +1,5 @@
 {
+  "homepage": "https://hungnguyen7.github.io/random-quote-machine",
   "name": "random-quote-machine",
   "version": "0.1.0",
   "private": true,
@@ -33,8 +34,6 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "http://hungnguyen7.github.io/random-quote-machine",
   "predeploy": "npm run build",
   "deploy": "gh-pages -d build"
 }
-
